@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>My Profile | 瀬名波</title>
+    <meta name="description" content="ソフトウェアエンジニア 瀬名波のプロフィール" />
+    <!-- Webfont（不要なら削除可） -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root{
+            --bg: #f7faf8;
+            --card: #ffffff;
+            --text: #1f2937;
+            --muted: #6b7280;
+            --primary: #22c55e; /* 緑 */
+            --primary-700:#15803d;
+            --ring: rgba(34,197,94,.25);
+            --shadow: 0 10px 30px rgba(0,0,0,.06), 0 6px 12px rgba(0,0,0,.04);
+            --radius: 20px;
+            --maxw: 880px;
+        }
+        @media (prefers-color-scheme: dark){
+            :root{
+                --bg: #0b1210;
+                --card: #0f1a16;
+                --text: #e5e7eb;
+                --muted: #9ca3af;
+                --shadow: 0 10px 30px rgba(0,0,0,.35), 0 6px 12px rgba(0,0,0,.25);
+            }
+        }
+
+        /* 背景の柔らかいグラデーション */
+        body{
+            margin:0;
+            font-family: "Noto Sans JP", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Yu Gothic", "Meiryo", sans-serif;
+            color: var(--text);
+            background:
+                    radial-gradient(1000px 600px at 10% -10%, rgba(34,197,94,.12), transparent 60%),
+                    radial-gradient(1000px 600px at 100% 10%, rgba(34,197,94,.10), transparent 60%),
+                    linear-gradient(180deg, var(--bg), var(--bg));
+            min-height: 100svh;
+            display: grid;
+            place-items: center;
+            padding: 48px 20px;
+        }
+
+        .wrap{
+            width: 100%;
+            max-width: var(--maxw);
+            display: grid;
+            gap: 28px;
+        }
+
+        .card{
+            background: var(--card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: clip;
+            position: relative;
+            isolation: isolate;
+        }
+
+        /* 上部のアクセント帯 */
+        .hero{
+            height: 120px;
+            background:
+                    radial-gradient(1200px 240px at 50% -60%, rgba(34,197,94,.35), transparent 60%),
+                    linear-gradient(135deg, #d1fae5 0%, #ecfdf5 60%, transparent 100%);
+            filter: saturate(1.1);
+        }
+        @media (prefers-color-scheme: dark){
+            .hero{
+                background:
+                        radial-gradient(1200px 240px at 50% -60%, rgba(34,197,94,.4), transparent 60%),
+                        linear-gradient(135deg, #052e1c 0%, #092d22 60%, transparent 100%);
+            }
+        }
+
+        .inner{
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            gap: 24px;
+            padding: 28px 28px 32px;
+            align-items: center;
+            translate: 0 -40px;
+        }
+        @media (max-width: 560px){
+            .inner{ grid-template-columns: 1fr; translate: 0 -56px; text-align: center; }
+        }
+
+        .avatar{
+            width: 120px; height: 120px;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg, #22c55e, #86efac, #22c55e);
+            padding: 3px;
+            box-shadow: 0 8px 20px rgba(34,197,94,.25);
+        }
+        .avatar > img, .avatar > .ph{
+            width: 100%; height: 100%;
+            border-radius: 50%;
+            display: grid; place-items: center;
+            background: var(--card);
+            color: var(--primary);
+            font-weight: 800; font-size: 32px;
+        }
+
+        h1{
+            margin: 0 0 6px;
+            font-size: clamp(24px, 4vw, 36px);
+            letter-spacing: .02em;
+            line-height: 1.2;
+        }
+        .subtitle{
+            margin: 0 0 10px;
+            color: var(--muted);
+            font-size: 15px;
+        }
+        .badges{
+            display:flex; flex-wrap: wrap; gap:10px;
+            justify-content: flex-start;
+        }
+        .badge{
+            padding: 8px 12px;
+            border-radius: 999px;
+            font-size: 12px; letter-spacing: .02em;
+            background: rgba(34,197,94,.12);
+            border: 1px solid rgba(34,197,94,.25);
+            color: var(--primary-700);
+            backdrop-filter: blur(2px);
+        }
+        @media (prefers-color-scheme: dark){
+            .badge{ color:#86efac; border-color: rgba(134,239,172,.25); background: rgba(34,197,94,.1); }
+        }
+
+        .actions{
+            display:flex; gap:12px; flex-wrap: wrap; margin-top: 18px;
+        }
+        .btn, .link{
+            display:inline-flex; align-items:center; gap:8px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(0,0,0,.06);
+            text-decoration: none; font-weight: 600;
+            transition: transform .06s ease, box-shadow .2s ease, border-color .2s ease, background-color .2s ease;
+            box-shadow: var(--shadow);
+            will-change: transform;
+        }
+        .btn{
+            background: linear-gradient(180deg, #22c55e, #16a34a);
+            color: white;
+            border-color: transparent;
+        }
+        .btn:hover{ transform: translateY(-1px); }
+        .link{
+            background: var(--card);
+            color: var(--text);
+        }
+        .link:hover{ border-color: var(--ring); transform: translateY(-1px); }
+
+        /* 2枚目：自己紹介・リンク集 */
+        .grid{
+            display: grid;
+            grid-template-columns: 1.4fr .6fr;
+            gap: 24px;
+        }
+        @media (max-width: 880px){ .grid{ grid-template-columns: 1fr; } }
+
+        .section{
+            background: var(--card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 24px;
+        }
+        .section h2{
+            margin: 4px 0 14px;
+            font-size: 18px;
+            letter-spacing: .02em;
+        }
+        .lead{
+            line-height: 1.9;
+            color: var(--text);
+        }
+        .list{
+            display: grid; gap: 10px; margin: 0; padding: 0; list-style: none;
+        }
+        .list a{
+            display:flex; justify-content: space-between; align-items:center;
+            padding: 12px 14px; border-radius: 12px; text-decoration: none;
+            border: 1px solid rgba(0,0,0,.06);
+            color: var(--text); background: var(--card);
+            transition: transform .08s ease, border-color .2s ease, box-shadow .2s ease;
+            box-shadow: var(--shadow);
+        }
+        .list a span{ color: var(--muted); font-size: 12px; }
+        .list a:hover{ transform: translateY(-1px); border-color: var(--ring); }
+
+        /* フッター */
+        footer{
+            text-align:center; color: var(--muted); font-size: 12px; margin-top: 6px;
+        }
+
+        /* さりげないアニメーション */
+        @media (prefers-reduced-motion: no-preference){
+            .card, .section, .btn, .link, .list a{ animation: pop .35s ease both; }
+            @keyframes pop{ from{ opacity: 0; transform: translateY(6px) scale(.98); } to{ opacity: 1; transform: translateY(0) scale(1); } }
+        }
+    </style>
+</head>
+<body>
+<main class="wrap" role="main">
+    <!-- プロフィールカード -->
+    <article class="card" aria-label="プロフィール">
+        <div class="hero" aria-hidden="true"></div>
+        <div class="inner">
+            <div class="avatar" aria-hidden="true">
+                <!-- 画像がある場合は置き換え -->
+                <!-- <img alt="瀬名波のプロフィール写真" src="images/avatar.jpg" loading="lazy" /> -->
+                <div class="ph" aria-hidden="true">S</div>
+            </div>
+
+            <div>
+                <h1>こんにちは！瀬名波です 👋</h1>
+                <p class="subtitle">ソフトウェアエンジニア / 趣味は読書と音楽鑑賞です。</p>
+
+                <div class="badges" aria-label="スキル">
+                    <div class="badge">Vue.js</div>
+                    <div class="badge">Go</div>
+                </div>
+
+                <div class="actions" role="group" aria-label="主要リンク">
+                    <a class="link" href="https://github.com/tetsuyase" target="_blank" rel="noopener">GitHub</a>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <!-- 自己紹介 & リンク集 -->
+    <div class="grid">
+        <section class="section">
+            <h2>自己紹介</h2>
+            <p class="lead">
+                ユーザー体験を大事にしております。
+            </p>
+        </section>
+
+        <nav class="section" aria-label="外部リンク">
+            <h2>リンク</h2>
+            <ul class="list">
+                <li><a href="https://zenn.dev/senaha" target="_blank" rel="noopener">技術ブログ <span>記事とメモ</span></a></li>
+            </ul>
+        </nav>
+    </div>
+</main>
+</body>
+</html>
